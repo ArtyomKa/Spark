@@ -1,23 +1,19 @@
 version: '2'
 services:
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile-mysql
-    #image: mysql:5.7
-    #volumes:
-    #  - ./sql/schema.sql:/docker-entrypoint-initdb.d/01-initschema.sql
+    image: mysql:5.7
+    restart: always
     ports:
       - '3306:3306'
     restart: always
-
+    volumes: 
+      - ./sql/config:/etc/mysql/mysql.conf.d/
     environment:
       MYSQL_DATABASE: spark
       MYSQL_USER: spark
       MYSQL_PASSWORD: spark
       MYSQL_ROOT_PASSWORD: spark
 
-    #scommand: "mysql -u root -p < sql/create_db.sql"
 
   app:
     build: .
@@ -32,7 +28,6 @@ services:
       - db
     environment:
       NODE_ENV: dockerdev
-      #IP: 127.0.0.1
       PORT: 3000
       DB_HOST: db
       DB_USER: spark

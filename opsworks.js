@@ -16,7 +16,7 @@ exports.db = {
             user: "spark",
             database: "spark",
             password: "spark",
-            host: "172.18.0.2"
+            host: "db"
         }
     }
 };

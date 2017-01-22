@@ -2,7 +2,7 @@
     "database": {
       "client": "mysql",
       "connection": {
-        "host"     : "172.18.0.2",
+        "host"  : "db",
         "user"  : "spark",
         "password"  : "spark",
         "database" : "spark"

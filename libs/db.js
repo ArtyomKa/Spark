@@ -3,11 +3,9 @@ var dbConfig = config.get('database');
 var log = require('./logger.js')(module);
 
 
-log.info("database config: \n" + "\nclient: " + dbConfig.client /
- + "connection: " + JSON.stringify(dbConfig) 
- + "debug: " + dbConfig.debug);
+log.info("database config: " + JSON.stringify(dbConfig));
  
-
+/*
 var knex = require('knex')({
     client: dbConfig.client,
     connection: {
@@ -19,7 +17,9 @@ var knex = require('knex')({
     debug: dbConfig.debug,
     useNullAsDefault: true
 });
+*/
 
+var knex = require('knex')(dbConfig)
 var bookshelf = require('bookshelf')(knex);
 
 bookshelf.plugin('virtuals');

@@ -2,7 +2,7 @@ exports.up = function (knex, Promise) {
     return Promise.all([
 
     // User table
-    knex.schema.createTable('users', function (table) {
+    knex.schema.createTableIfNotExists('users', function (table) {
             // Basic ID + security fields
             table.timestamps();
             table.increments('user_id').primary();
@@ -12,7 +12,7 @@ exports.up = function (knex, Promise) {
             table.string('reset_password_token', 32).unique();
             table.timestamp('reset_password_expires');
             table.string('email_validation_token', 32).unique();
-            table.timestamp('email_validation_expires');
+            table.timestamp('email_validation_expires').defaultTo(knex.raw('now()'));
             table.boolean('enabled').defaultTo(true);
             table.boolean('validated').defaultTo(false);
             table.string('roles', 200).defaultTo('');
@@ -32,7 +32,7 @@ exports.up = function (knex, Promise) {
         }),
 
     // Payments table
-    knex.schema.createTable('payments', function (table) {
+    knex.schema.createTableIfNotExists('payments', function (table) {
             table.timestamps();
             table.increments('payment_id').primary();
             table.string('private_sale_token', 40);
@@ -43,7 +43,7 @@ exports.up = function (knex, Promise) {
         }),
 
     // NPO table
-    knex.schema.createTable('npo_members', function (table) {
+    knex.schema.createTableIfNotExists('npo_members', function (table) {
             table.timestamps();
             table.integer('user_id').unsigned().primary();
             table.enu('membership_status', ['not_member', 'request_approved', 'member_paid', 'member_should_pay', 'banned', 'request_rejected', 'applied_for_membership']).defaultTo('not_member');
