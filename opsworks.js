@@ -5,9 +5,20 @@
  */
 
 exports.db = {
-    "client"        : "sqlite3",
-    "debug"         : false,
-    "filename"      : "./dev.sqlite3"
+    development : {
+        client        : "sqlite3",
+        debug         : false,
+        filename      : "./dev.sqlite3"
+    },
+    dockerdev : {
+        client : "mysql",
+        connection : {
+            user: "spark",
+            database: "spark",
+            password: "spark",
+            host: "172.18.0.2"
+        }
+    }
 };
 
 // mysql configuration example

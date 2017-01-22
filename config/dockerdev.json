@@ -1,0 +1,11 @@
+{
+    "database": {
+      "client": "mysql",
+      "connection": {
+        "host"     : "172.18.0.2",
+        "user"  : "spark",
+        "password"  : "spark",
+        "database" : "spark"
+      }
+    }
+}
