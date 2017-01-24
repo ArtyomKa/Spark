@@ -8,6 +8,7 @@ services:
     restart: always
     volumes: 
       - ./sql/config:/etc/mysql/mysql.conf.d/
+      - ./mysql/data/:/var/lib/mysql/
     environment:
       MYSQL_DATABASE: spark
       MYSQL_USER: spark
