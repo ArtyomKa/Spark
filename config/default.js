@@ -1,7 +1,9 @@
 const opsworks = require('../opsworks.js');
+var log = require('../libs/logger.js')(module);
 
-console.log("default.js > " + JSON.stringify(opsworks));
-console.log("NODE_ENV " + process.env.NODE_ENV);
+
+log.debug("default.js > " + JSON.stringify(opsworks));
+log.debug("NODE_ENV " + process.env.NODE_ENV);
 
 module.exports =  {
   database: process.env.NODE_ENV ? opsworks.db[process.env.NODE_ENV ] : opsworks.db.development,

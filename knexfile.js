@@ -1,6 +1,6 @@
 var config = require('config');
 var dbConfig = config.get('database');
-var log = require('./logger.js')(module);
+var log = require('./libs/logger.js')(module);
 
 
 log.debug("KNEX env " + JSON.stringify(dbConfig));

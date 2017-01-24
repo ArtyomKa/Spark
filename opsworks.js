@@ -8,9 +8,9 @@ exports.db = {
     
     development : {
         client        : "sqlite3",
-        debug         : false,
+//        debug         : true,
         connection : {
-            filename      : "./dev.sqlite3"
+            filename : "./dev.sqlite3"
         }
     },
 
