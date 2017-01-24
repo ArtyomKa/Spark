@@ -5,11 +5,15 @@
  */
 
 exports.db = {
+    
     development : {
         client        : "sqlite3",
         debug         : false,
-        filename      : "./dev.sqlite3"
+        connection : {
+            filename      : "./dev.sqlite3"
+        }
     },
+
     dockerdev : {
         client : "mysql",
         connection : {

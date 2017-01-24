@@ -44,7 +44,7 @@ var User = bookshelf.Model.extend({
         },
 
         isAdmin: function() {
-            return (this.attributes.roles.split(',').indexOf('admin') > -1);
+            return this.attributes.roles && (this.attributes.roles.split(',').indexOf('admin') > -1);
         }
     }
 });
