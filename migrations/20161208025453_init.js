@@ -2,7 +2,7 @@ exports.up = function (knex, Promise) {
     return Promise.all([
 
     // User table
-    knex.schema.createTableIfNotExists('users', function (table) {
+    knex.schema.createTable(constants.USERS_TABLE_NAME, function (table) {
             // Basic ID + security fields
             table.timestamps();
             table.increments('user_id').primary();
@@ -12,7 +12,7 @@ exports.up = function (knex, Promise) {
             table.string('reset_password_token', 32).unique();
             table.timestamp('reset_password_expires');
             table.string('email_validation_token', 32).unique();
-            table.timestamp('email_validation_expires').defaultTo(knex.raw('now()'));
+            table.timestamp('email_validation_expires');
             table.boolean('enabled').defaultTo(true);
             table.boolean('validated').defaultTo(false);
             table.string('roles', 200).defaultTo('');
@@ -20,7 +20,7 @@ exports.up = function (knex, Promise) {
             // Profile fields
             table.string('first_name', 64);
             table.string('last_name', 64);
-            table.enu('gender', ['male', 'female', 'other']);
+            table.enu('gender', constants.USER_GENDERS);
             table.date('date_of_birth');
             table.string('israeli_id', 9);
             table.string('address', 100);
@@ -32,7 +32,7 @@ exports.up = function (knex, Promise) {
         }),
 
     // Payments table
-    knex.schema.createTableIfNotExists('payments', function (table) {
+    knex.schema.createTable(constants.PAYMENTS_TABLE_NAME, function (table) {
             table.timestamps();
             table.increments('payment_id').primary();
             table.string('private_sale_token', 40);
@@ -43,10 +43,10 @@ exports.up = function (knex, Promise) {
         }),
 
     // NPO table
-    knex.schema.createTableIfNotExists('npo_members', function (table) {
+    knex.schema.createTable(constants.NPO_MEMBERS_TABLE_NAME, function (table) {
             table.timestamps();
             table.integer('user_id').unsigned().primary();
-            table.enu('membership_status', ['not_member', 'request_approved', 'member_paid', 'member_should_pay', 'banned', 'request_rejected', 'applied_for_membership']).defaultTo('not_member');
+            table.enu('membership_status', constants.NPO_MEMBERSHIP_STATUSES).defaultTo(constants.NPO_MEMBERSHIP_STATUSES_DEFAULT);
             table.timestamp('application_date');
             table.date('membership_start_date');
             table.date('membership_end_date');
