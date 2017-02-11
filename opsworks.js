@@ -5,24 +5,24 @@
  */
 
 exports.db = {
-    
-    development : {
-        client        : "sqlite3",
-//        debug         : true,
-        connection : {
-            filename : "./dev.sqlite3"
-        }
+    development: {
+        client: 'sqlite3',
+        debug: false,
+        connection: {
+            filename: './dev.sqlite3',
+        },
+        useNullAsDefault: true,
     },
 
-    dockerdev : {
-        client : "mysql",
-        connection : {
-            user: "spark",
-            database: "spark",
-            password: "spark",
-            host: "db"
-        }
-    }
+    staging: {
+        client: 'mysql',
+        connection: {
+            user: 'spark',
+            database: 'spark',
+            password: 'spark',
+            host: process.env['DB_HOST'] || 'db',
+        },
+    },
 };
 
 // mysql configuration example
@@ -37,19 +37,19 @@ exports.db = {
 // };
 
 exports.server = {
-    port      : 3000,
-    hostname  : "localhost",
-    protocol  : "http",                  // http or https
-    url       : "http://localhost:3000"  // full URL including protocol and port. NO trailing slash
+    port: 3000,
+    hostname: 'localhost',
+    protocol: 'http',                  // http or https
+    url: 'http://localhost:3000',  // full URL including protocol and port. NO trailing slash
 };
 
 exports.mail = {
-    enabled         : true,
-    from            : "spark@localhost",
-    host            : "localhost",
+    enabled: true,
+    from: 'spark@localhost',
+    host: 'localhost',
     secureConnection: false,         // use SSL
-    port            : 25,          // port for secure SMTP
-    transportMethod : "SMTP"       // default is SMTP. Accepts anything that nodemailer accepts
+    port: 25,          // port for secure SMTP
+    transportMethod: 'SMTP',       // default is SMTP. Accepts anything that nodemailer accepts
     /*
     auth: {
         user: "",
@@ -64,19 +64,19 @@ exports.payment = {
 };
 
 exports.npo = {
-    email         : "amuta@localhost",
-    idImagesFolder: "d:/temp/"
+    email: 'amuta@localhost',
+    idImagesFolder: 'd:/temp/',
 };
 
 exports.facebook = {
-    app_id: "1083906121721925",
-    app_secret: "",
-    callbackBase: "http://localhost:3000"
+    app_id: '1083906121721925',
+    app_secret: '',
+    callbackBase: 'http://localhost:3000',
 };
 
 exports.recaptcha = {
     ignore: true, // when ignore is true - recaptcha is enabled but if it fails it ignores and continues sign up anyway
     // TODO change eyalliebermann app in an oficial one
-    sitekey: "6LcdJwwUAAAAAGfkrUCxOp-uCE1_69AlIz8yeHdj",
-    secretkey: "6LcdJwwUAAAAAFdmy7eFSjyhtz8Y6t-BawcB9ApF"
+    sitekey: '6LcdJwwUAAAAAGfkrUCxOp-uCE1_69AlIz8yeHdj',
+    secretkey: '6LcdJwwUAAAAAFdmy7eFSjyhtz8Y6t-BawcB9ApF',
 };

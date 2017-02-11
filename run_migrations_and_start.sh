@@ -1,3 +1,3 @@
 #!/bin/sh
-NODE_ENV=dockerdev knex migrate:latest
+knex migrate:latest
 npm start
