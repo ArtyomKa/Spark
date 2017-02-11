@@ -12,7 +12,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha  \"routes/*test.js\" ",
-
+    "debug": "node --nolazy --debug-brk --debug=5858 server.js",
     "//devops": "Generic deployment / devops commands, used from .travis.yml, see /docs/development/releases-and-deployment.md",
 
     "//log": "send a generic log notification to slack",
