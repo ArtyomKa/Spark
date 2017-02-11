@@ -1,12 +1,7 @@
 const opsworks = require('../opsworks.js');
-//var log = require('../libs/logger.js')(module);
-
-
-//log.debug("default.js > " + JSON.stringify(opsworks));
-//log.debug("NODE_ENV " + process.env.NODE_ENV);
 
 module.exports =  {
-  database: process.env.NODE_ENV ? opsworks.db[process.env.NODE_ENV ] : opsworks.db.development,
+  database: opsworks.db,
   
   server: opsworks.server,
 
@@ -20,5 +15,13 @@ module.exports =  {
 
   npo: opsworks.npo,
   
-  facebook: opsworks.facebook
+  facebook: opsworks.facebook,
+
+  recaptcha: {
+    sitekey: opsworks.recaptcha.sitekey,
+    secretkey: opsworks.recaptcha.secretkey,
+    ignore: opsworks.recaptcha.ignore
+  },
+
+  published_camps_origin: 'http://54.194.247.12'
 };

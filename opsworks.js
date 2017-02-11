@@ -31,9 +31,9 @@ exports.db = {
 //     "debug"         : false,
 //     "host"          : "localhost",
 //     "database"      : "spark",
-//     "username"      : "spark",
+//     "user"          : "spark",
 //     "password"      : "spark",
-//     "charset"       : "UTF8_GENERAL_CI",
+//     "charset"       : "utf8",
 // };
 
 exports.server = {
@@ -72,4 +72,11 @@ exports.facebook = {
     app_id: "1083906121721925",
     app_secret: "",
     callbackBase: "http://localhost:3000"
+};
+
+exports.recaptcha = {
+    ignore: true, // when ignore is true - recaptcha is enabled but if it fails it ignores and continues sign up anyway
+    // TODO change eyalliebermann app in an oficial one
+    sitekey: "6LcdJwwUAAAAAGfkrUCxOp-uCE1_69AlIz8yeHdj",
+    secretkey: "6LcdJwwUAAAAAFdmy7eFSjyhtz8Y6t-BawcB9ApF"
 };
