@@ -11,3 +11,4 @@ services:
     environment:
       NODE_ENV: development
       PORT: 3000
+    command: [ ./scripts/run_migrations_and_start.sh, run, debug ]

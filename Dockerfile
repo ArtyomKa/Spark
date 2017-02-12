@@ -14,7 +14,7 @@ RUN npm install -g knex
 
 EXPOSE 3000
 EXPOSE 5858
-#CMD [ "./wait-for-it.sh", "db:3306", "--", "./run_migrations_and_start.sh", "--", "npm", "start" ]
-CMD [ "./run_migrations_and_start.sh", "run", "debug" ]
+
+CMD [ "./scripts/run_migrations_and_start.sh", "start" ]
 
 #ENTRYPOINT 
