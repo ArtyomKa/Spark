@@ -5,7 +5,7 @@ var log = require('./logger.js')(module);
 
 log.debug("database config: " + JSON.stringify(dbConfig));
  
-var knex = require('knex')(dbConfig/*[process.env.NODE_ENV]*/);
+var knex = require('knex')(dbConfig);
 var bookshelf = require('bookshelf')(knex);
 
 bookshelf.plugin('virtuals');

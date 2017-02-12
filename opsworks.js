@@ -5,6 +5,13 @@
  */
 
 exports.db = {
+    client: 'sqlite3',
+        debug: false,
+        connection: {
+            filename: './dev.sqlite3',
+        },
+        useNullAsDefault: true,
+        /*
     development: {
         client: 'sqlite3',
         debug: false,
@@ -13,7 +20,7 @@ exports.db = {
         },
         useNullAsDefault: true,
     },
-
+    */
     staging: {
         client: 'mysql',
         connection: {
