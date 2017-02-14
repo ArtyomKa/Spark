@@ -11,37 +11,17 @@ exports.db = {
             filename: './dev.sqlite3',
         },
         useNullAsDefault: true,
-        /*
-    development: {
-        client: 'sqlite3',
-        debug: false,
-        connection: {
-            filename: './dev.sqlite3',
-        },
-        useNullAsDefault: true,
-    },
-    */
     staging: {
         client: 'mysql',
         connection: {
-            user: 'spark',
-            database: 'spark',
-            password: 'spark',
+            user: process.env['DB_USER'],
+            database: process.env['DB_DATABASE'],
+            password: process.env['DB_PASSWORD'],
             host: process.env['DB_HOST'] || 'db',
         },
     },
 };
 
-// mysql configuration example
-// exports.db = {
-//     "client"        : "mysql",
-//     "debug"         : false,
-//     "host"          : "localhost",
-//     "database"      : "spark",
-//     "user"          : "spark",
-//     "password"      : "spark",
-//     "charset"       : "utf8",
-// };
 
 exports.server = {
     port: 3000,
