@@ -2,10 +2,12 @@ switch (process.env.SPARK_DB_CLIENT || "sqlite3") {
     case "mysql":
         exports.database = {
             "client": process.env.SPARK_DB_CLIENT,
-            "host": process.env.SPARK_DB_HOSTNAME,
-            "database": process.env.SPARK_DB_DBNAME,
-            "user": process.env.SPARK_DB_USER,
-            "password": process.env.SPARK_DB_PASSWORD,
+            "connection": {
+                "host": process.env.SPARK_DB_HOSTNAME,
+                "database": process.env.SPARK_DB_DBNAME,
+                "user": process.env.SPARK_DB_USER,
+                "password": process.env.SPARK_DB_PASSWORD,
+            },
             "charset": "utf8",
             "debug": (process.env.SPARK_DB_DEBUG === "true")
         };
@@ -14,7 +16,9 @@ switch (process.env.SPARK_DB_CLIENT || "sqlite3") {
     case "sqlite3":
         exports.database = {
             "client": process.env.SPARK_DB_CLIENT || "sqlite3",
-            "filename": process.env.SPARK_DB_FILENAME || "./dev.sqlite3",
+            "connection": {
+                "filename": process.env.SPARK_DB_FILENAME || "./dev.sqlite3"
+            },
             "debug": (process.env.SPARK_DB_DEBUG === "true")
         };
         break;
