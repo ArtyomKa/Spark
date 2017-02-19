@@ -1,6 +1,4 @@
-var config = require('config');
-var serverConfig = config.get('server');
-var security = require('../libs/security');
+// var config = require('config');
 
 var User = require('../models/user').User;
 var Camp = require('../models/camp').Camp;
@@ -9,11 +7,16 @@ var CampDetails = require('../models/camp').CampDetails;
 module.exports = function(app, passport) {
     /**
      * API: (GET) get user by id
-     * request => /userss/:id
+     * request => /users/:id
      */
     app.get('/users/:id', (req, res) => {
         User.forge({user_id: req.params.id}).fetch({columns: '*'}).then((user) => {
-            res.json({name: user.get('name'), email: user.get('email'), cell_phone: user.get('cell_phone')})
+            if (user !== null) {
+                res.json({name: user.get('name'), email: user.get('email'), cell_phone: user.get('cell_phone')})
+            } else {
+                res.status(404).json({message: 'Not found'})
+            }
+
         }).catch((err) => {
             res.status(500).json({
                 error: true,
@@ -21,7 +24,7 @@ module.exports = function(app, passport) {
                     message: err.message
                 }
             });
-        });;
+        });
     });
     /**
      * API: (POST) create camp
@@ -187,19 +190,13 @@ module.exports = function(app, passport) {
      * camp_name_en, camp_name_he, camp_desc_en, camp_desc_he, status,
      * accept_families, contact_person_full_name, phone, email, facebook_page
      * request => /camps_published
+     * method: JSONP
      */
     app.get('/camps_published', (req, res, next) => {
-        // Allow this address to http-request to this endpoint.
-        // TODO: add env check - if (app.get('env') === 'development')
-        var API_PUBLISHED_CAMPS_ALLOW_ORIGIN = config.get('published_camps_origin');
-
-        res.header('Access-Control-Allow-Origin', API_PUBLISHED_CAMPS_ALLOW_ORIGIN);
-        res.header('Access-Control-Allow-Methods', 'GET');
-        res.header('Access-Control-Allow-Headers', 'Content-Type');
         Camp.fetchAll().then((camp) => {
             var published_camps = [];
             for (var i = 0; i < camp.models.length; i++) {
-                if (camp.models[i].attributes.enabled == '1' && camp.models[i].attributes.status != 'inactive') {
+                if (camp.models[i].attributes.enabled === '1' && camp.models[i].attributes.status !== 'inactive') {
                     var fetched_camp = {
                         id: camp.models[i].attributes.id,
                         name_en: camp.models[i].attributes.camp_name_en,
@@ -214,9 +211,9 @@ module.exports = function(app, passport) {
                     published_camps.push(fetched_camp);
                 }
             }
-            res.status(200).json({published_camps})
+            res.status(200).jsonp({published_camps})
         }).catch((err) => {
-            res.status(500).json({
+            res.status(500).jsonp({
                 error: true,
                 data: {
                     message: err.message
@@ -228,20 +225,27 @@ module.exports = function(app, passport) {
      * API: (GET) return camp's contact person with:
      * name_en, name_he, email, phone
      * request => /camps_contact_person/:id
+     * method: JSONP
      */
     app.get('/camps_contact_person/:id', (req, res, next) => {
         // Allow this address to http-request to this endpoint.
-        var API_PUBLISHED_CAMPS_ALLOW_ORIGIN = config.get('published_camps_origin');
-
-        res.header('Access-Control-Allow-Origin', API_PUBLISHED_CAMPS_ALLOW_ORIGIN);
-        res.header('Access-Control-Allow-Methods', 'GET');
-        res.header('Access-Control-Allow-Headers', 'Content-Type');
+        // var API_PUBLISHED_CAMPS_ALLOW_ORIGIN;
+        // if (app.get('env') === 'development') {
+        //    API_PUBLISHED_CAMPS_ALLOW_ORIGIN = config.get('published_camps_origin.dev');
+        // } else {
+        //   API_PUBLISHED_CAMPS_ALLOW_ORIGIN = config.get('published_camps_origin.prod');
+        // }
+        //
+        // res.header('Access-Control-Allow-Origin', API_PUBLISHED_CAMPS_ALLOW_ORIGIN);
+        // res.header('Access-Control-Allow-Methods', 'GET');
+        // res.header('Access-Control-Allow-Headers', 'Content-Type');
         User.forge({user_id: req.params.id}).fetch({
-            require: true, columns: ['name', 'firstname', 'lastname', 'email', 'phone']
+            require: true,
+            columns: ['first_name', 'last_name', 'email', 'cell_phone']
         }).then((user) => {
-            res.status(200).json({user: user.toJSON()})
+            res.status(200).jsonp({user: user.toJSON()})
         }).catch((err) => {
-            res.status(500).json({
+            res.status(500).jsonp({
                 error: true,
                 data: {
                     message: err.message
@@ -332,7 +336,7 @@ module.exports = function(app, passport) {
      * request => /camps/join
      */
     app.get('/camps/join/:camp_id/:id', (req, res) => {
-        var camp_id = req.params.camp_id,
+        var camp_id = req.params.camp_id, // eslint-disable-line no-unused-vars
             user_id = req.params.id;
         // Send email to camp manager for a join request, with user details;
         User.forge({user_id: user_id}).fetch({require: true, columns: '*'}).then((user) => {
