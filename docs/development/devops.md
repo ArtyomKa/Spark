@@ -406,3 +406,16 @@ User=ubuntu
 WantedBy=multi-user.target
 ```
   * start the service: `sudo service midburn-spark-slack start`
+
+
+### Docker
+
+The spark system supports two configurations:
+* Development - One container containing the spark node.js web app using sqlite3
+* Staging - Two Containers:
+    * db - Vanilla MySql server container exposing the default mysql server port
+    * app - Spark Web app container exposing port 3000 and 5858 (for debugging)
+
+[Docker-compose](https://docs.docker.com/compose/overview/) is used for coordintaing the container creation. 
+For that purpose two compose files are created [docker-compose-dev.yml](../../docker-compose-dev.yml) and 
+[docker-compose-staging.yml](../../docker-compose-staging.yml)

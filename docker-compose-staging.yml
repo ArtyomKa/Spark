@@ -9,7 +9,6 @@ services:
     volumes: 
       - ./sql/config:/etc/mysql/mysql.conf.d/
       - ~/mysql/data:/var/lib/mysql/
-    
     env_file:
       ./staging.env
   app:
