@@ -26,7 +26,7 @@
     "//lint": "runs static analysis using eslint",
     "lint": "./node_modules/.bin/eslint .",
     "//migrate": "runs db migrations",
-    "migrate": "knex migrate:latest"
+    "migrate": "./node_modules/.bin/knex migrate:latest"
     
   },
   "dependencies": {
@@ -58,7 +58,7 @@
     "express-session": "^1.14.0",
     "i18next": "^3.4.1",
     "i18next-express-middleware": "^1.0.1",
-    "i18next-localstorage-cache": "^0.3.0",
+    "i18next-localstorage-cache": "^0.3.0",  
     "i18next-node-fs-backend": "^0.1.2",
     "jade": "^1.11.0",
     "knex": "^0.11.7",

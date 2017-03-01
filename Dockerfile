@@ -1,6 +1,5 @@
 #6.x lateste version
 FROM node:boron
-RUN npm install -g knex
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
