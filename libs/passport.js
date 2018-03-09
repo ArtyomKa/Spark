@@ -87,7 +87,7 @@ var drupal_login = function (email, password, done) {
                                 serial_id: _.get(ticket, 'field_ticket_serial_id.und.0.value', '')
                             };
                             _ticket.is_mine = (_ticket.user_uid === drupal_user_id);
-                            if (constants.events[constants.DEFAULT_EVENT_ID].bundles.indexOf(_ticket.bundle) > -1) {
+                            if (constants.events[constants.DEFAULT_EVENT_ID].bundles.indexOf(int(_ticket.bundle)) > -1) {
                                 _ticket.event_id = constants.DEFAULT_EVENT_ID;
                                 if (_ticket.is_mine) {
                                     current_event_tickets_count++;
